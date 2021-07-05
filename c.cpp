@@ -1,0 +1,111 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int n,m,i,j,k,a,b,c,len,t,m1,m2;
+    char s[200500];
+    cin>>t;
+    for(i=0;i<t;i++){
+        c=0;
+        len=0,m1=0,m2=0;
+        cin>>a>>b;
+        cin>>s;
+        for(j=0;s[j]!='\0';j++){
+            if(s[j]=='0'){
+                m1++;
+            }
+            else if(s[j]=='1'){
+                m2++;
+            }
+        }
+        a-=m1;
+        b-=m2;
+        len=j;
+        for(j=0,k=len-1;j<=k;j++,k--){
+            if(j==k&&s[j]=='?'){
+                if(a>=b&&a>0){
+                    s[j]='0';
+                    a--;
+                }
+                else if(b>a&&b>0){
+                    s[j]='1';
+                    b--;
+                }
+                else{
+                    c=1;
+                    break;
+                }
+            }
+            if(s[j]=='0'&&s[k]=='?'){
+                if(a>0){
+                    s[k]='0';
+                    a--;
+                }
+                else{
+                    c=1;
+                    break;
+                }
+            }
+            else if(s[j]=='?'&&s[k]=='0'){
+                if(a>0){
+                    s[j]='0';
+                    a--;
+                }
+                else{
+                    c=1;
+                    break;
+                }
+            }
+            if(s[j]=='1'&&s[k]=='?'){
+                if(b>0){
+                    s[k]='1';
+                    b--;
+                }
+                else{
+                    c=1;
+                    break;
+                }
+            }
+            else if(s[j]=='?'&&s[k]=='1'){
+                if(b>0){
+                    s[j]='1';
+                    b--;
+                }
+                else{
+                    c=1;
+                    break;
+                }
+            }
+            if(s[j]=='?'&&s[k]=='?'){
+                if(a>=b&&a>1){
+                    s[j]='0';
+                    s[k]='0';
+                    a-=2;
+                }
+                else if(b>a&&b>1){
+                    s[j]='1';
+                    s[k]='1';
+                    b-=2;
+                }
+                else{
+                    c=1;
+                    break;
+                }
+            }
+            if((s[j]=='1'&&s[k]=='0')||(s[j]=='0'&&s[k]=='1')){
+                c=1;
+                break;
+            }
+        }
+        if(a!=0||b!=0){
+            c=1;
+        }
+        if(c==1){
+            cout<<-1<<endl;
+        }
+        else{
+            cout<<s<<endl;
+        }
+    }
+    return 0;
+}
